@@ -1,26 +1,29 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <img alt="Vue logo" src="./assets/logo.png" width="90" height="90">
+  <ShowAddress />
+  <hr />
+
+  <hr />
+  <button @click="createPair()">Create</button>
+  <button>Restore</button>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import ShowAddress from './components/ShowAddress.vue'
+import bitcore from 'bitcore-lib'
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    ShowAddress
+  },
+  methods: {
+    createPair () {
+      let privateKey = new bitcore.PrivateKey();
+      console.log(privateKey)
+      let address = privateKey.toAddress()
+      console.log('addr:',address)
+    }
   }
 }
 </script>
-
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>

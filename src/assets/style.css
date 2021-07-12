@@ -1,0 +1,26 @@
+body {
+    color: #FFF;
+    background-color: #218c74;
+}
+#app {
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+}
+
+.search {
+    width:100%
+  }
+  .info {
+    width:100%
+  }
+  button {
+    padding: 10px;
+    margin: 10px;
+    color:cornsilk;
+    background-color: blue;
+  }
+  input {
+    margin-right: 2%;
+  }
