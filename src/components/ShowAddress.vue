@@ -16,32 +16,11 @@
       </ul>
     </div>
   </div>
-
-  <!-- 
-balance: 1328205468
-balance_usd: 455574.475524
-first_seen_receiving: "2011-06-21 01:21:42"
-first_seen_spending: null
-id: "1BitcoinEaterAddressDontSendf59kuE"
-last_seen_receiving: "2021-07-04 04:27:53"
-last_seen_spending: null
-output_count: 392
-received: 1328205468
-received_usd: 9101.9635
-script_hex: "76a914759d6677091e973b9e9d99f19c68fbf43e3f05f988ac"
-scripthash_type: null
-spent: 0
-spent_usd: 0
-transaction_count: 391
-type: "pubkeyhash"
-unspent_output_count: 392
-
-  -->
 </template>
 
-
-
 <script>
+import btc from 'bitcore-lib'
+
 export default {
   name: 'ShowAddress',
   props: {
@@ -55,13 +34,14 @@ export default {
   },
   methods: {
     async getAddressInfo (btcAddr) {
+
       console.log("addr:", btcAddr)
       const f = await fetch (
         `https://api.blockchair.com/bitcoin/dashboards/address/${btcAddr}`
       )
       const data = await f.json()
-      const result = data.context.results
-
+      const result = btc.Address.isValid(btcAddr)
+      
       if (result) {
         this.currentBtcAddress = data.data[btcAddr]
         this.currentBtcAddress.address.id = btcAddr
