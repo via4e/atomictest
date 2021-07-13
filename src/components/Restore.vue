@@ -3,7 +3,7 @@
         Enter private key and click Ok to restore public key
         <hr />
 
-        <input type="text" v-model="inputString" placeholder="input private key to restore pair">
+        <input type="text" v-model="inputString" placeholder="input private key to restore there..">
         
 
         <hr />

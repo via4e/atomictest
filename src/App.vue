@@ -1,10 +1,12 @@
 <template>
 <div>
   <img alt="Vue logo" src="./assets/logo.png" width="90" height="90">
-  <ShowAddress />
+  <ShowAddress v-if="pair?.address && pair.address.length" :addr="pair.address" :pubKey="pair.public"/>
   <hr />
-Pair:<br/>
-{{ pair }}
+  <template v-if="pair?.private && pair.private.length">
+    Pair:<br/>
+    {{ pair }}
+  </template>
   <hr />
   <button @click="createPair()">Create</button>
   <button @click="restoreDialog()">Restore</button>
