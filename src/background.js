@@ -12,13 +12,12 @@ protocol.registerSchemesAsPrivileged([
 
 async function createWindow() {
   // Create the browser window.
+  // Change width to "width: 1200px" with "devTools: false" on.
   const win = new BrowserWindow({
-    width: 1200,
+    width: 1920,
     height: 800,
     webPreferences: {
-      //devTools: false,
-      // Use pluginOptions.nodeIntegration, leave this alone
-      // See nklayman.github.io/vue-cli-plugin-electron-builder/guide/security.html#node-integration for more info
+      //devTools: false, // use "width: 1200" when off
       nodeIntegration: process.env.ELECTRON_NODE_INTEGRATION,
       contextIsolation: !process.env.ELECTRON_NODE_INTEGRATION
     }
