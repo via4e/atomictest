@@ -9,6 +9,12 @@
       placeholder="input private key to restore there.."
     />
 
+    <input
+        type="text"
+        v-model="inputMnemonicString"
+        placeholder="input seed phrase to restore there.."
+    />
+
     <hr />
     <button @click.stop="restoreKey()">Ок</button>
     <button @click.stop="cancel()">Cancel</button>
@@ -29,6 +35,9 @@ export default {
     },
     restoreKey() {
       this.$emit("restoreKey", this.inputString);
+    },
+    restoreMnemoKey() {
+      this.$emit("restoreMnemoKey", this.inputString);
     },
   },
 };

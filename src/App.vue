@@ -27,6 +27,7 @@
     </template>
     <hr />
     <button @click="createPair()">Create</button>
+    <button @click="createMnemonic()">Create Mnemonic</button>
     <button @click="restoreDialog()">Restore</button>
 
     <Restore
@@ -41,6 +42,7 @@
 import ShowAddress from "./components/ShowAddress.vue";
 import Restore from "./components/Restore.vue";
 import btc from "bitcore-lib";
+import Mnemonic from "bitcore-mnemonic";
 
 export default {
   name: "App",
@@ -69,6 +71,21 @@ export default {
       };
 
       console.log("pair:", this.pair);
+    },
+    createMnemonic() {
+      let seed = new Mnemonic();
+      let privKey = new btc.PrivateKey ( seed.toHDPrivateKey(seed.toString()) );
+      let pubKey = new btc.PublicKey( privKey );
+      //let addr = privKey.toAddress();
+
+      this.pair = {
+        seed: seed.toString(),
+        private: privKey.toString(), //.toWIF(),
+        public: pubKey,
+        //address: addr.toString(),
+      };
+
+      console.log(this.pair);
     },
     restoreDialog() {
       console.log(this.privateKey, this.publicKey, this.address);
