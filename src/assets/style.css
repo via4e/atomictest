@@ -46,3 +46,8 @@ td {
 td:first-child {
   text-align: right;
 }
+
+.mnemonic {
+  font-weight: bold;
+  color: #2c2c54;
+}

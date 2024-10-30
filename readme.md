@@ -10,3 +10,11 @@
 #Собрать electron-приложение
 
    npm run electron:build
+
+#Полезное
+
+   Из консоли библиотеки btc и mnemonic доступны по алиасам
+   btc
+   Mnemonic
+
+

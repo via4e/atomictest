@@ -11,8 +11,11 @@
       {{ pairMessage }}
       <table>
         <tr>
+          <td>mnemonic:</td>
+          <td class="mnemonic">{{ pair.mnemonic }}</td>
+        </tr>
+        <tr>
           <td>private:</td>
-          <!-- <td>{{ pair.private.slice(0,9)}} ...</td>  - if hide private key, we cant copy it to restore -->
           <td>{{ pair.private }}</td>
         </tr>
         <tr>
@@ -27,7 +30,6 @@
     </template>
     <hr />
     <button @click="createPair()">Create</button>
-    <button @click="createMnemonic()">Create Mnemonic</button>
     <button @click="restoreDialog()">Restore</button>
 
     <Restore
@@ -43,6 +45,9 @@ import ShowAddress from "./components/ShowAddress.vue";
 import Restore from "./components/Restore.vue";
 import btc from "bitcore-lib";
 import Mnemonic from "bitcore-mnemonic";
+
+window.btc = btc;
+window.Mnemonic = Mnemonic;
 
 export default {
   name: "App",
@@ -60,32 +65,29 @@ export default {
   },
   methods: {
     createPair() {
-      let privKey = new btc.PrivateKey();
-      let pubKey = new btc.PublicKey(privKey);
-      let addr = privKey.toAddress();
+      const DERIVATION = 'm/44\'/0\'/0\'/0/0'
+      //Generate new mnemonic
+      let code = new Mnemonic(Mnemonic.Words.ENGLISH);
+      let mnemonic = code.toString();
+
+      let xpriv = code.toHDPrivateKey();
+      let derived = xpriv.derive(DERIVATION);
+      let privateKey = derived.privateKey;
+      let pk = new btc.PrivateKey( privateKey.toString() );
+
+      let publicKey = new btc.PublicKey(pk);
+      let address = new btc.Address(publicKey);
+
+      console.log('from code', pk, address)
 
       this.pair = {
-        private: privKey.toWIF(),
-        public: pubKey.toString(),
-        address: addr.toString(),
+        private: pk.toWIF(),
+        public: publicKey.toString(),
+        address: address.toString(),
+        mnemonic: mnemonic,
       };
 
       console.log("pair:", this.pair);
-    },
-    createMnemonic() {
-      let seed = new Mnemonic();
-      let privKey = new btc.PrivateKey ( seed.toHDPrivateKey(seed.toString()) );
-      let pubKey = new btc.PublicKey( privKey );
-      //let addr = privKey.toAddress();
-
-      this.pair = {
-        seed: seed.toString(),
-        private: privKey.toString(), //.toWIF(),
-        public: pubKey,
-        //address: addr.toString(),
-      };
-
-      console.log(this.pair);
     },
     restoreDialog() {
       console.log(this.privateKey, this.publicKey, this.address);
