@@ -43,13 +43,19 @@ input {
 td {
   text-align: left;
   padding-left: 8px;
+  color: white;
+  font-weight: bold;
+  text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
 }
 
 td:first-child {
   text-align: right;
 }
 
-.mnemonic {
+.normal {
   font-weight: bold;
-  color: #2c2c54;
+  text-shadow: none;
 }
+
+.mnemonic {  color: #2c2c54; }
+.balance {  color: #b33939; }

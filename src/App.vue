@@ -4,6 +4,7 @@
     <ShowAddress
       :addr="pair.address"
       :pubKey="pair.public"
+      :balance="pair.balance"
       @clearPair="clearPair"
     />
     <hr />
@@ -12,19 +13,19 @@
       <table>
         <tr>
           <td>mnemonic:</td>
-          <td class="mnemonic">{{ pair.mnemonic }}</td>
+          <td class="normal mnemonic">{{ pair.mnemonic }}</td>
         </tr>
         <tr>
           <td>private:</td>
-          <td>{{ pair.private }}</td>
+          <td class="normal">{{ pair.private }}</td>
         </tr>
         <tr>
           <td>public:</td>
-          <td>{{ pair.public }}</td>
+          <td class="normal">{{ pair.public }}</td>
         </tr>
         <tr>
           <td>address:</td>
-          <td>{{ pair.address }}</td>
+          <td class="normal">{{ pair.address }}</td>
         </tr>
       </table>
     </template>
@@ -85,6 +86,7 @@ export default {
         public: publicKey.toString(),
         address: address.toString(),
         mnemonic: mnemonic,
+        balance: "0",
       };
 
       console.log("pair:", this.pair);
@@ -112,6 +114,7 @@ export default {
         public: publicKey.toString(),
         address: address.toString(),
         mnemonic: mnemonic,
+        balance: "0",
       };
 
       this.showRestore = false;
