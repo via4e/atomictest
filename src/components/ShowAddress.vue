@@ -45,8 +45,7 @@ export default {
     async getAddressInfo(btcAddr) {
       console.log("ShowAddress addr:", btcAddr);
       const f = await fetch(
-        `https://api.blockchair.com/bitcoin/dashboards/address/${btcAddr}`
-      );
+        `https://api.blockchair.com/bitcoin/dashboards/address/${btcAddr}` );
       const data = await f.json();
       const result = btc.Address.isValid(btcAddr);
 

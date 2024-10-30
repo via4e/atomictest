@@ -46,6 +46,7 @@ import Restore from "./components/Restore.vue";
 import btc from "bitcore-lib";
 import Mnemonic from "bitcore-mnemonic";
 
+const DERIVATION = 'm/44\'/0\'/0\'/0/0'
 window.btc = btc;
 window.Mnemonic = Mnemonic;
 
@@ -65,7 +66,6 @@ export default {
   },
   methods: {
     createPair() {
-      const DERIVATION = 'm/44\'/0\'/0\'/0/0'
       //Generate new mnemonic
       let code = new Mnemonic(Mnemonic.Words.ENGLISH);
       let mnemonic = code.toString();
@@ -94,23 +94,26 @@ export default {
       this.showRestore = true;
     },
     restorePublicKey(str) {
-      console.log("restorePublicKey str", str);
+      console.log("restore from mnemonic:", str);
 
-      if (btc.PrivateKey.isValid(str)) {
-        let privKey = btc.PrivateKey.fromWIF(str);
-        let pubKey = new btc.PublicKey(privKey);
-        let addr = privKey.toAddress();
+      let code = new Mnemonic(str);
+      let mnemonic = code.toString();
 
-        this.pair = {
-          private: str,
-          public: pubKey.toString(),
-          address: addr.toString(),
-        };
+      let xpriv = code.toHDPrivateKey();
+      let derived = xpriv.derive(DERIVATION);
+      let privateKey = derived.privateKey;
+      let pk = new btc.PrivateKey( privateKey.toString() );
 
-        this.pairMessage = "Pair restored..."
-      } else {
-        console.error('invalid private key, can not restore public key..')
-      }
+      let publicKey = new btc.PublicKey(pk);
+      let address = new btc.Address(publicKey);
+
+      this.pair = {
+        private: pk.toWIF(),
+        public: publicKey.toString(),
+        address: address.toString(),
+        mnemonic: mnemonic,
+      };
+
       this.showRestore = false;
     },
     restoreCancel() {

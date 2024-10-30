@@ -1,6 +1,7 @@
 body {
   color: #fff;
   background-color: #34ace0;
+  font-size: 1.5em;
 }
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
@@ -23,6 +24,7 @@ button {
 input {
   margin-right: 2%;
   width: 80%;
+  font-size: 1.3em;
 }
 
 .popup {

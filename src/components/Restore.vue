@@ -6,13 +6,7 @@
     <input
       type="text"
       v-model="inputString"
-      placeholder="input private key to restore there.."
-    />
-
-    <input
-        type="text"
-        v-model="inputMnemonicString"
-        placeholder="input seed phrase to restore there.."
+      placeholder="enter a 12 word phrase.."
     />
 
     <hr />
